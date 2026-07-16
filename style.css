@@ -218,20 +218,20 @@
 .hero-visual{
   position:relative;
   overflow:hidden;
-  width:100%;
-  aspect-ratio:4/5;      /* fija el tamaño del recuadro siempre */
+  width:100%;           /* ocupa el ancho de su columna, como ya tenías */
+  aspect-ratio:4/5;      /* ← ESTO fija el tamaño del recuadro siempre */
   border-radius:20px;
   border:1px solid var(--line);
   background:linear-gradient(160deg, #1B1430, #2A1E4A 40%, var(--grad-3) 130%);
-  z-index:2;             /* asegura que quede POR ENCIMA del fondo de estrellas */
 }
  
+/* Todas las fotos se apilan exactamente en el mismo lugar */
 .hero-visual .slide{
   position:absolute;
-  inset:0;
+  inset:0;              /* ocupa TODO el contenedor fijo, sin excepción */
   width:100%;
   height:100%;
-  object-fit:cover;
+  object-fit:cover;      /* recorta la foto para llenar el espacio sin deformarse */
   opacity:0;
   animation:heroCrossfade 12s infinite;
 }
@@ -252,29 +252,6 @@
   .hero-visual .slide{ animation:none; opacity:0; }
   .hero-visual .slide:first-child{ opacity:1; }
 }
- 
-.hero-social{
-  position:absolute;
-  right:-52px; top:50%;
-  transform:translateY(-50%);
-  display:flex; flex-direction:column; gap:14px;
-}
- 
-.hero-social a{
-  width:36px; height:36px;
-  border-radius:50%;
-  border:1px solid var(--line);
-  display:flex; align-items:center; justify-content:center;
-  font-size:0.85rem;
-  color:var(--text-muted);
-}
- 
-.hero-social a:hover{ border-color:var(--grad-2); color:var(--text); }
- 
-@media (max-width:980px){
-  .hero-social{ display:none; }
-}
-
 
 
   /* ============ SECCIONES GENERALES ============ */
