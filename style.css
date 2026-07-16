@@ -209,46 +209,42 @@
 
 
 
-hero-visual{
+.hero-visual{
   position:relative;
   overflow:hidden;
+  width:100%;           /* ocupa el ancho de su columna, como ya tenías */
+  aspect-ratio:4/5;      /* ← ESTO fija el tamaño del recuadro siempre */
+  border-radius:20px;
+  border:1px solid var(--line);
+  background:linear-gradient(160deg, #1B1430, #2A1E4A 40%, var(--grad-3) 130%);
 }
  
-/* Todas las fotos ocupan el mismo espacio, apiladas una sobre otra */
+/* Todas las fotos se apilan exactamente en el mismo lugar */
 .hero-visual .slide{
   position:absolute;
-  inset:0;
+  inset:0;              /* ocupa TODO el contenedor fijo, sin excepción */
   width:100%;
   height:100%;
-  object-fit:cover;
+  object-fit:cover;      /* recorta la foto para llenar el espacio sin deformarse */
   opacity:0;
-  animation:heroCrossfade 12s infinite; /* 12s = duración total del ciclo con 3 fotos */
+  animation:heroCrossfade 12s infinite;
 }
  
-/* Cada foto entra en su propio tramo del ciclo.
-   Con 3 fotos y 12s total, cada una dura 4s visible. */
-.hero-visual .slide:nth-child(1){ animation-delay:0s;  }
-.hero-visual .slide:nth-child(2){ animation-delay:4s;  }
-.hero-visual .slide:nth-child(3){ animation-delay:8s;  }
+.hero-visual .slide:nth-child(1){ animation-delay:0s; }
+.hero-visual .slide:nth-child(2){ animation-delay:4s; }
+.hero-visual .slide:nth-child(3){ animation-delay:8s; }
  
 @keyframes heroCrossfade{
   0%    { opacity:0; }
-  4%    { opacity:1; }   /* aparece */
-  29%   { opacity:1; }   /* se mantiene visible */
-  33%   { opacity:0; }   /* se desvanece */
-  100%  { opacity:0; }   /* queda oculta el resto del ciclo */
+  4%    { opacity:1; }
+  29%   { opacity:1; }
+  33%   { opacity:0; }
+  100%  { opacity:0; }
 }
  
-/* Si el usuario tiene activado "reducir movimiento" en su sistema,
-   se detiene la animación por accesibilidad */
 @media (prefers-reduced-motion: reduce){
-  .hero-visual .slide{
-    animation:none;
-    opacity:0;
-  }
-  .hero-visual .slide:first-child{
-    opacity:1;
-  }
+  .hero-visual .slide{ animation:none; opacity:0; }
+  .hero-visual .slide:first-child{ opacity:1; }
 }
  
 
