@@ -157,9 +157,11 @@
   }
 
   .hero-grid{
+.hero-grid > div:first-child {
     background-image: url('videos/fondo estrellas.gif');
     background-size: cover;
     background-position: center;
+}
     position:relative; z-index:1;
     display:grid;
     grid-template-columns:1.05fr 0.95fr;
