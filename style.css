@@ -156,11 +156,23 @@
     z-index:0;
   }
 
-  .hero-grid{
-.hero-grid > div:first-child {
+.hero-grid {
+  
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 56px;
+    align-items: center;
+    position: relative;
+}
+
+/* Pon el fondo aquí, en el contenedor del texto */
+.texto-contenedor {
     background-image: url('videos/fondo estrellas.gif');
     background-size: cover;
     background-position: center;
+    padding: 20px; /* Asegúrate de añadir un poco de padding para que el texto no toque los bordes */
+    border-radius: 16px; /* Opcional: si quieres que el fondo tenga esquinas redondeadas igual que tu foto */
+    height: 100%; /* Para que llene toda la altura de la fila */
 }
     position:relative; z-index:1;
     display:grid;
