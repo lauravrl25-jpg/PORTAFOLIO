@@ -213,63 +213,44 @@
   flex-shrink:0;
 }
  
-/* ============ CAJA DE FOTOS — recuadro sólido, tamaño fijo ============ */
-.hero-visual .slide{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0;
-  animation:heroCrossfade 20s infinite; /* 5 fotos × 4s cada una = 20s el ciclo completo */
+/* ============ HERO — bloques base que faltaban ============ */
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:90px 0 100px;
+  border-bottom:1px solid var(--line);
 }
- 
-/* Cada foto entra en su propio tramo del ciclo de 20s */
-.hero-visual .slide:nth-child(1){ animation-delay:0s;  }
-.hero-visual .slide:nth-child(2){ animation-delay:4s;  }
-.hero-visual .slide:nth-child(3){ animation-delay:8s;  }
-.hero-visual .slide:nth-child(4){ animation-delay:12s; }
- 
-@keyframes heroCrossfade{
-  0%    { opacity:0; }
-  4%    { opacity:1; }   /* aparece */
-  17%   { opacity:1; }   /* se mantiene visible */
-  21%   { opacity:0; }   /* se desvanece */
-  100%  { opacity:0; }   /* queda oculta el resto del ciclo */
-}
- 
-@media (prefers-reduced-motion: reduce){
-  .hero-visual .slide{ animation:none; opacity:0; }
-  .hero-visual .slide:first-child{ opacity:1; }
-}
- 
 
-
- 
-.hero-social{
+.hero-glow{
   position:absolute;
-  right:-52px; top:50%;
-  transform:translateY(-50%);
-  display:flex; flex-direction:column; gap:14px;
-}
- 
-.hero-social a{
-  width:36px; height:36px;
+  top:-180px; right:-160px;
+  width:520px; height:520px;
   border-radius:50%;
+  background:radial-gradient(circle, var(--grad-2) 0%, transparent 70%);
+  opacity:0.25;
+  filter:blur(20px);
+  z-index:0;
+}
+
+.hero-grid{
+  position:relative; z-index:1;
+  display:grid;
+  grid-template-columns:1.05fr 0.95fr;
+  gap:56px;
+  align-items:center;
+}
+
+/* ↓↓↓ ESTA ES LA REGLA QUE TE FALTABA ↓↓↓ */
+.hero-visual{
+  position:relative;   /* para que las fotos se queden AQUÍ dentro */
+  overflow:hidden;
+  width:100%;
+  aspect-ratio:4/5;    /* fija el tamaño del recuadro */
+  border-radius:20px;
   border:1px solid var(--line);
-  display:flex; align-items:center; justify-content:center;
-  font-size:0.85rem;
-  color:var(--text-muted);
+  background:linear-gradient(160deg, #1B1430, #2A1E4A 40%, var(--grad-3) 130%);
+  z-index:2;
 }
- 
-.hero-social a:hover{ border-color:var(--grad-2); color:var(--text); }
- 
-@media (max-width:980px){
-  .hero-social{ display:none; }
-}
- 
-
-
 
 
 
