@@ -253,6 +253,26 @@
   .hero-visual .slide:first-child{ opacity:1; }
 }
 
+
+.hero-social{
+  position:absolute;
+  right:-52px; top:50%;
+  transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:14px;
+}
+
+.hero-social a{
+  width:36px; height:36px;
+  border-radius:50%;
+  border:1px solid var(--line);
+  display:flex; align-items:center; justify-content:center;
+  font-size:0.85rem;
+  color:var(--text-muted);
+}
+
+.hero-social a:hover{ border-color:var(--grad-2); color:var(--text); }
+
+
   /* ============ SERVICIOS ============ */
   .servicios-grid{
     display:grid;
