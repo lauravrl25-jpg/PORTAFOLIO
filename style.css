@@ -214,40 +214,23 @@
     background:linear-gradient(160deg, #1B1430, #2A1E4A 40%, var(--grad-3) 130%);
     border:1px solid var(--line);
   }
-/* 1. Aseguramos que el contenedor padre tenga posición relativa */
-.hero-visual {
-  position: relative;
-  /* Ajusta el tamaño según tu diseño original, ej: height: 400px; */
-  width: 100%;
-  overflow: hidden; /* Opcional: para que nada se salga del contenedor */
-}
-
-/* 2. Preparamos el contenedor del slideshow */
-.slideshow-container {
-  position: relative;
-  width: 100%;
-  height: 100%; /* Toma el alto del contenedor padre */
-}
-
-/* 3. Estilo base para todas las imágenes */
-.slide {
-  position: absolute;  /* Apilamos todas las imágenes en el mismo lugar */
+.hero-visual .slide {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;   /* Asegura que la imagen cubra el área sin deformarse */
-  opacity: 0;          /* Por defecto, todas las imágenes son invisibles */
-  /* Transición suave para la propiedad opacity */
-  transition: opacity 1.5s ease-in-out; 
-  z-index: 1;          /* Nivel de apilamiento base */
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out; /* Velocidad del fundido */
 }
 
-/* 4. Estilo para la imagen activa (visible) */
-.slide.active {
-  opacity: 1;          /* Hacemos visible la imagen activa */
-  z-index: 2;          /* La colocamos por encima de las demás */
+/* Solo la imagen con clase .active será visible */
+.hero-visual .slide.active {
+  opacity: 1;
 }
+
+
 
   .hero-visual img{ width:100%; height:100%; object-fit:cover; }
 
