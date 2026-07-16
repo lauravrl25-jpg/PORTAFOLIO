@@ -157,15 +157,6 @@
   }
 
 .hero-grid {
-  
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    gap: 56px;
-    align-items: center;
-    position: relative;
-}
-
-/* Pon el fondo aquí, en el contenedor del texto */
 .texto-contenedor {
     background-image: url('videos/fondo estrellas.gif');
     background-size: cover;
