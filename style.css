@@ -156,12 +156,10 @@
     z-index:0;
   }
 
- .hero-grid{
-
+.hero-grid{
     background-image: url('videos/fondo estrellas.gif');
     background-size: cover;
     background-position: center;
-    align-items:center;
     position:relative; z-index:1;
     display:grid;
     grid-template-columns:1.05fr 0.95fr;
