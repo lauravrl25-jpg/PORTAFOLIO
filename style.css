@@ -254,7 +254,7 @@
 }
 
 
- .hero-social{
+.hero-social{
   position:absolute;
   right:-52px; top:50%;
   transform:translateY(-50%);
@@ -275,6 +275,7 @@
 @media (max-width:980px){
   .hero-social{ display:none; }
 }
+
 
 
   /* ============ SERVICIOS ============ */
