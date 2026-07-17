@@ -244,27 +244,16 @@
   transform:rotate(0deg) scale(1.01);
 }
  
-.hero-visual{
-  position:relative;
-  overflow:hidden;
-  width:100%;           /* ocupa el ancho de su columna, como ya tenías */
-  aspect-ratio:4/5;      /* ← ESTO fija el tamaño del recuadro siempre */
-  border-radius:20px;
-  border:1px solid var(--line);
-  background:linear-gradient(160deg, #1B1430, #2A1E4A 40%, var(--grad-3) 130%);
-}
- 
-/* Todas las fotos se apilan exactamente en el mismo lugar */
+/* Las fotos internas heredan el radio del borde para que no se salgan de las esquinas redondeadas */
 .hero-visual .slide{
   position:absolute;
-  inset:0;              /* ocupa TODO el contenedor fijo, sin excepción */
+  inset:0;
   width:100%;
   height:100%;
-  object-fit:cover;      /* recorta la foto para llenar el espacio sin deformarse */
+  object-fit:cover;
+  border-radius:16px; /* un poco menos que el contenedor para que se vea el borde blanco parejo */
   opacity:0;
   animation:heroCrossfade 12s infinite;
-}
- 
 .hero-visual .slide:nth-child(1){ animation-delay:0s; }
 .hero-visual .slide:nth-child(2){ animation-delay:4s; }
 .hero-visual .slide:nth-child(3){ animation-delay:8s; }
