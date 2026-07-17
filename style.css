@@ -148,7 +148,7 @@ ero{
      no en .hero-grid (eso mezclaba todo). */
   background-image:
     linear-gradient(rgba(10,7,18,0.55), rgba(10,7,18,0.55)),
-    url('videos/fondo estrellas.gif');
+    url('videos/estrellas-brillantes.gif');
   background-size: cover, cover;
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
