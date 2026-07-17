@@ -138,14 +138,17 @@
   .nav-cta{ flex-shrink:0; }
 
 /* ============ HERO ============ */
-.hero{
+ero{
   position:relative;
-@@ -149,133 +149,133 @@
+  overflow:hidden;
+  padding:90px 0 100px;
+  border-bottom:1px solid var(--line);
+
+  /* El fondo de estrellas va AQUÍ, en toda la sección,
      no en .hero-grid (eso mezclaba todo). */
   background-image:
     linear-gradient(rgba(10,7,18,0.55), rgba(10,7,18,0.55)),
     url('videos/fondo estrellas.gif');
-    url('videos/estrellas-brillantes.gif');
   background-size: cover, cover;
   background-position: center, center;
   background-repeat: no-repeat, no-repeat;
@@ -218,7 +221,9 @@
   aspect-ratio:4/5;      /* ← ESTO fija el tamaño del recuadro siempre */
   border-radius:20px;
   border:1px solid var(--line);
-  background:linear-gradient(160deg, #1B1430, #2A1E4A 40%, var(--grad-3) 130%);
+  background:linear-gradient(160deg, 
+#1B1430, 
+#2A1E4A 40%, var(--grad-3) 130%);
 }
 
 /* Todas las fotos se apilan exactamente en el mismo lugar */
@@ -248,15 +253,12 @@
   .hero-visual .slide{ animation:none; opacity:0; }
   .hero-visual .slide:first-child{ opacity:1; }
 }
-
-
 .hero-social{
   position:absolute;
   right:-52px; top:50%;
   transform:translateY(-50%);
   display:flex; flex-direction:column; gap:14px;
 }
-
 .hero-social a{
   width:36px; height:36px;
   border-radius:50%;
@@ -265,9 +267,7 @@
   font-size:0.85rem;
   color:var(--text-muted);
 }
-
 .hero-social a:hover{ border-color:var(--grad-2); color:var(--text); }
-
 @media (max-width:980px){
   .hero-social{ display:none; }
 }
