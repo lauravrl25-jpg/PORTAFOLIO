@@ -101,23 +101,33 @@
     padding:18px 32px; max-width:1240px; margin:0 auto; gap:20px;
   }
 
-  .brand{
-    font-family:var(--font-display); font-size:1.5rem; font-weight:700;
-    display:flex; align-items:center; gap:10px;
-    letter-spacing:0.01em;
-  }
+.brand{
+  font-family:var(--font-display);
+  font-size:1.5rem;
+  font-weight:700;
+  display:flex; align-items:center; gap:10px;
+  letter-spacing:0.01em;
+}
  
-
-  .brand-text{ display:flex; flex-direction:column; line-height:1.15; }
-
-  .brand-tagline{
-    font-family:var(--font-mono);
-    font-size:0.78rem;
-    font-weight:400;
-    letter-spacing:0.04em;
-    color:var(--text-dim);
-    text-transform:none;
-  }
+/* Oculta el cuadrado del logo */
+.brand .logo-dot{
+  display:none;
+}
+ 
+.brand-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1.2;
+}
+ 
+.brand-tagline{
+  font-family:var(--font-mono);
+  font-size:0.95rem;        /* antes 0.78rem — ahora bastante más grande */
+  font-weight:400;
+  letter-spacing:0.03em;
+  color:var(--text-dim);
+  text-transform:none;
+}
 
   nav.main-links{ display:flex; gap:6px; }
 
