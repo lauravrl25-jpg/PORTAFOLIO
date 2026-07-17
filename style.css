@@ -146,7 +146,7 @@
   border-bottom:1px solid var(--line);
  
   background-image:
-    linear-gradient(rgba(10,7,18,0.55), rgba(10,7,18,0.55)),
+  linear-gradient(rgba(10,7,18,0.1), rgba(10,7,18,0.1)),
     url('videos/estrellas-brillantes.gif');
   background-size: cover, cover;
   background-position: center, center;
