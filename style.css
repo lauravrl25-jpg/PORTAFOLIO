@@ -424,9 +424,13 @@
     min-height:340px;
     position:relative;
   }
-
-  .nosotros-visual img{ width:100%; height:100%; object-fit:cover; }
-
+.nosotros-visual img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
   .nosotros-text{
     background:var(--surface);
     padding:52px 48px;
