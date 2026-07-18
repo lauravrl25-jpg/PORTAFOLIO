@@ -532,6 +532,18 @@
   }
 
   /* ============ FOOTER ============ */
+
+/* ============ FONDO DE PAISAJE — sección Portafolio ============ */
+ 
+#portafolio{
+  position:relative;
+  background-image:
+    linear-gradient(rgba(10,7,18,0.75), rgba(10,7,18,0.75)),
+    url('img/paisaje-cielo.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
   footer{ padding:70px 32px 40px; }
 
   .footer-grid{
