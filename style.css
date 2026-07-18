@@ -629,21 +629,21 @@
 
 
 /* ============================================================
-   ESPACIADO GENERAL (más sutil, ~2cm) — pegar AL FINAL de tu style.css
+   ESPACIADO GENERAL (reducido) — pegar AL FINAL de tu style.css
    ============================================================ */
  
 .section{
-  padding-top:75px;
-  padding-bottom:75px;
+  padding-top:40px;
+  padding-bottom:40px;
 }
  
 .section-head{
-  margin-bottom:40px;
+  margin-bottom:28px;
 }
  
 .eyebrow{
   display:inline-block;
-  margin-bottom:12px;
+  margin-bottom:10px;
 }
  
 .servicios-grid{
@@ -657,53 +657,51 @@
 .filter-tabs{
   gap:10px;
   margin-top:6px;
-  margin-bottom:32px;
+  margin-bottom:24px;
 }
  
 .center-cta{
-  margin-top:36px;
+  margin-top:24px;
 }
  
 #nosotros{
-  margin-top:16px;
+  margin-top:10px;
 }
  
 .nosotros-text{
-  padding:44px 40px;
+  padding:36px 32px;
 }
  
 .proceso-steps{
-  gap:28px;
+  gap:20px;
 }
  
 .cta-banner{
-  margin-top:75px;
-  margin-bottom:75px;
+  margin-top:40px;
+  margin-bottom:40px;
 }
  
 footer{
-  padding-top:64px;
+  padding-top:40px;
 }
  
 .footer-grid{
-  gap:36px;
-  padding-bottom:36px;
+  gap:28px;
+  padding-bottom:28px;
 }
  
 @media (max-width:760px){
   .section{
-    padding-top:50px;
-    padding-bottom:50px;
+    padding-top:28px;
+    padding-bottom:28px;
   }
   .section-head{
-    margin-bottom:28px;
+    margin-bottom:20px;
   }
   .cta-banner{
-    margin-top:50px;
-    margin-bottom:50px;
+    margin-top:28px;
+    margin-bottom:28px;
   }
 }
- 
-
 
 </style>
