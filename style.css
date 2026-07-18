@@ -532,14 +532,11 @@
   }
 
   /* ============ FOOTER ============ */
-
-/* ============ FONDO DE PAISAJE — sección Portafolio ============ */
  
  /* ============ FONDO DE PAISAJE — sección Portafolio ============ */
-
 #portafolio{
   background-image:
-    linear-gradient(rgba(10,7,18,0.55), rgba(10,7,18,0.55)),
+    linear-gradient(rgba(10,7,18,0.1), rgba(10,7,18,0.1)),
     url('videos/paisaje-cielo.gif');
   background-size: cover, cover;
   background-position: center, center;
