@@ -629,80 +629,81 @@
 
 
 /* ============================================================
-   ESPACIADO GENERAL — pegar esto AL FINAL de tu style.css
+   ESPACIADO GENERAL (más sutil, ~2cm) — pegar AL FINAL de tu style.css
    ============================================================ */
-
+ 
 .section{
-  padding-top:100px;
-  padding-bottom:100px;
+  padding-top:75px;
+  padding-bottom:75px;
 }
-
+ 
 .section-head{
-  margin-bottom:56px;
+  margin-bottom:40px;
 }
-
+ 
 .eyebrow{
   display:inline-block;
-  margin-bottom:14px;
+  margin-bottom:12px;
 }
-
+ 
 .servicios-grid{
-  gap:28px;
+  gap:20px;
 }
-
+ 
 .grid{
+  gap:20px;
+}
+ 
+.filter-tabs{
+  gap:10px;
+  margin-top:6px;
+  margin-bottom:32px;
+}
+ 
+.center-cta{
+  margin-top:36px;
+}
+ 
+#nosotros{
+  margin-top:16px;
+}
+ 
+.nosotros-text{
+  padding:44px 40px;
+}
+ 
+.proceso-steps{
   gap:28px;
 }
-
-.filter-tabs{
-  gap:14px;
-  margin-top:8px;
-  margin-bottom:48px;
-}
-
-.center-cta{
-  margin-top:52px;
-}
-
-#nosotros{
-  margin-top:20px;
-}
-
-.nosotros-text{
-  padding:56px 48px;
-}
-
-.proceso-steps{
-  gap:40px;
-}
-
+ 
 .cta-banner{
-  margin-top:100px;
-  margin-bottom:100px;
+  margin-top:75px;
+  margin-bottom:75px;
 }
-
+ 
 footer{
-  padding-top:90px;
+  padding-top:64px;
 }
-
+ 
 .footer-grid{
-  gap:48px;
-  padding-bottom:48px;
+  gap:36px;
+  padding-bottom:36px;
 }
-
+ 
 @media (max-width:760px){
   .section{
-    padding-top:64px;
-    padding-bottom:64px;
+    padding-top:50px;
+    padding-bottom:50px;
   }
   .section-head{
-    margin-bottom:36px;
+    margin-bottom:28px;
   }
   .cta-banner{
-    margin-top:64px;
-    margin-bottom:64px;
+    margin-top:50px;
+    margin-bottom:50px;
   }
 }
+ 
 
 
 </style>
