@@ -562,14 +562,6 @@
     font-size:0.8rem; color:var(--text-muted);
   }
 
-/* ============ MÁS SEPARACIÓN ENTRE LOS ICONOS ============ */
- 
-.footer-social{
-  display:flex;
-  gap:20px;         /* antes 10px — ahora el doble de separados entre sí */
-  margin-top:76px;
-}
- 
 
   .footer-col h4{
     font-family:var(--font-mono);
