@@ -560,32 +560,36 @@
   }
 
   /* ↓↓↓ AQUÍ VA EL BLOQUE NUEVO ↓↓↓ */
-  .btn-footer{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    width:100%;
-    padding:9px 14px;
-    border-radius:20px;
-    font-family:var(--font-body);
-    font-weight:600;
-    font-size:0.78rem;
-    border:1px solid transparent;
-    cursor:pointer;
-  }
-  .btn-footer.btn-solid{
-    background:linear-gradient(90deg, var(--grad-3), var(--grad-2));
-    color:#fff;
-  }
-  .btn-footer.btn-outline{
-    background:transparent;
-    border:1px solid var(--line);
-    color:var(--text);
-  }
-  .btn-footer.btn-outline:hover{
-    border-color:var(--grad-2);
-  }
+  btn-footer{
+  align-self:start;         /* evita que se estire a toda la altura del grid */
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  width:auto;                /* evita que se estire a todo el ancho de la columna */
+  padding:9px 16px;
+  border-radius:20px;
+  font-family:var(--font-body);
+  font-weight:600;
+  font-size:0.78rem;
+  border:1px solid transparent;
+  cursor:pointer;
+}
+ 
+.btn-footer.btn-solid{
+  background:linear-gradient(90deg, var(--grad-3), var(--grad-2));
+  color:#fff;
+}
+ 
+.btn-footer.btn-outline{
+  background:transparent;
+  border:1px solid var(--line);
+  color:var(--text);
+}
+ 
+.btn-footer.btn-outline:hover{
+  border-color:var(--grad-2);
+}
   /* ↑↑↑ FIN DEL BLOQUE NUEVO ↑↑↑ */
 
   .footer-col h4{
