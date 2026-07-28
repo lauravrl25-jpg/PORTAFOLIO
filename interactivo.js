@@ -205,16 +205,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  // Inyecta el CSS que necesitan estas animaciones
   const estilos = document.createElement("style");
   estilos.textContent = `
-    /* Efecto "brillo" que recorre el botón al pasar el mouse */
-    .btn{
+    .btn, .btn-footer{
       position:relative;
       overflow:hidden;
       transition:transform 0.15s ease, box-shadow 0.25s ease;
     }
-    .btn::after{
+    .btn::after, .btn-footer::after{
       content:"";
       position:absolute;
       top:0; left:-75%;
@@ -224,21 +222,15 @@ document.addEventListener("DOMContentLoaded", () => {
       transition:left 0.6s ease;
       pointer-events:none;
     }
-    .btn:hover::after{
+    .btn:hover::after, .btn-footer:hover::after{
       left:125%;
     }
-
-    /* Brillo/resplandor al pasar el mouse sobre botones sólidos */
     .btn-solid:hover{
       box-shadow:0 8px 24px rgba(255,61,122,0.45);
     }
-
-    /* Se "presiona" ligeramente al hacer clic */
-    .btn.js-pressed{
+    .js-pressed{
       transform:scale(0.94);
     }
-
-    /* Efecto ripple (ondas) al hacer clic */
     .js-ripple{
       position:absolute;
       border-radius:50%;
@@ -248,50 +240,31 @@ document.addEventListener("DOMContentLoaded", () => {
       pointer-events:none;
     }
     @keyframes js-ripple-anim{
-      to{
-        transform:scale(3);
-        opacity:0;
-      }
+      to{ transform:scale(3); opacity:0; }
     }
-
-    /* Pulso sutil constante en los botones sólidos, para llamar la atención */
     @keyframes js-pulso-glow{
       0%, 100%{ box-shadow:0 0 0 0 rgba(255,61,122,0.35); }
       50%{ box-shadow:0 0 0 8px rgba(255,61,122,0); }
     }
-    .btn-solid.js-pulso{
+    .js-pulso{
       animation:js-pulso-glow 2.4s ease-in-out infinite;
     }
-
     @media (prefers-reduced-motion: reduce){
-      .btn::after{ display:none; }
-      .btn-solid.js-pulso{ animation:none; }
+      .btn::after, .btn-footer::after{ display:none; }
+      .js-pulso{ animation:none; }
       .js-ripple{ display:none; }
     }
   `;
   document.head.appendChild(estilos);
 
-  const botones = document.querySelectorAll(".btn");
+  // Selecciona TODOS los botones del sitio, incluyendo los del footer (.btn-footer)
+  const botones = document.querySelectorAll(".btn, .btn-footer");
 
   botones.forEach((boton) => {
+    boton.addEventListener("mousedown", () => boton.classList.add("js-pressed"));
+    boton.addEventListener("mouseup", () => boton.classList.remove("js-pressed"));
+    boton.addEventListener("mouseleave", () => boton.classList.remove("js-pressed"));
 
-    // ------------------------------------------------------------
-    // Efecto "presionado" al hacer clic (se encoge un poquito)
-    // ------------------------------------------------------------
-    boton.addEventListener("mousedown", () => {
-      boton.classList.add("js-pressed");
-    });
-    boton.addEventListener("mouseup", () => {
-      boton.classList.remove("js-pressed");
-    });
-    boton.addEventListener("mouseleave", () => {
-      boton.classList.remove("js-pressed");
-    });
-
-    // ------------------------------------------------------------
-    // Efecto "ripple" (ondas expandiéndose) al hacer clic,
-    // desde el punto exacto donde se hizo clic
-    // ------------------------------------------------------------
     boton.style.position = boton.style.position || "relative";
     boton.addEventListener("click", (e) => {
       const rect = boton.getBoundingClientRect();
@@ -306,10 +279,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ------------------------------------------------------------
-  // Pulso suave llamativo solo en el botón principal del hero
-  // (el primer .btn-solid que encuentre la página)
-  // ------------------------------------------------------------
   const botonPrincipal = document.querySelector(".btn-solid");
   if (botonPrincipal) {
     botonPrincipal.classList.add("js-pulso");
