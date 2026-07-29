@@ -75,9 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ------------------------------------------------------------
   // 3. MENÚ RESALTA LA SECCIÓN ACTUAL
-  //    CORREGIDO: ya no observa <main> (que envuelve todo lo demás
-  //    y causaba que "Inicio" y otras secciones chocaran entre sí).
-  //    Ahora "Inicio" se vincula directamente con .hero.
+  //    "Inicio" vinculado a .hero (no a <main>, que envuelve todo)
   // ------------------------------------------------------------
   const enlacesNav = document.querySelectorAll(".nav-link");
   const mapaNav = [];
@@ -113,9 +111,20 @@ document.addEventListener("DOMContentLoaded", () => {
     mapaNav.forEach((m) => observadorNav.observe(m.elemento));
   }
 
+  // Si el usuario llegó al final de la página, fuerza que se resalte
+  // el último enlace del menú (Contacto), sin depender de que la
+  // franja de detección del centro llegue a tocarlo.
+  window.addEventListener("scroll", () => {
+    const llegoAlFinal =
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+    if (llegoAlFinal && enlacesNav.length) {
+      enlacesNav.forEach((enlace) => enlace.classList.remove("js-active"));
+      enlacesNav[enlacesNav.length - 1].classList.add("js-active");
+    }
+  });
+
   // ------------------------------------------------------------
   // 4. APARICIÓN AL HACER SCROLL
-  //    (ya no incluye "main", solo secciones y tarjetas individuales)
   // ------------------------------------------------------------
   const objetivosReveal = document.querySelectorAll(
     "section, .servicio-card, .card, .proceso-step"
@@ -191,98 +200,3 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
 });
-
-
-// ============================================================
-// ANIMACIÓN PARA "ASÍ TRABAJO" — 100% JavaScript, autocontenido.
-// Línea que se dibuja conectando los pasos + círculos con rebote.
-// No requiere tocar el HTML ni el CSS.
-// Solo agrega: <script src="proceso-animado.js"></script>
-// junto a tus otros <script> antes de </body>
-// ============================================================
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  const contenedor = document.querySelector(".proceso-steps");
-  if (!contenedor) return; // si no existe esta sección, no hace nada
-
-  // Inyecta el CSS que necesita esta animación
-  const estilos = document.createElement("style");
-  estilos.textContent = `
-    .proceso-steps{
-      position:relative;
-    }
-    .js-proceso-linea{
-      position:absolute;
-      top:27px;
-      height:2px;
-      background:linear-gradient(90deg,#8B3DFF,#FF3D7A,#FF7A3D);
-      width:0%;
-      transition:width 1.4s cubic-bezier(.22,.9,.32,1);
-      z-index:0;
-    }
-    @keyframes js-bounce-in{
-      0%{ transform:scale(0) rotate(-180deg); opacity:0; }
-      60%{ transform:scale(1.15) rotate(10deg); opacity:1; }
-      100%{ transform:scale(1) rotate(0deg); }
-    }
-    .step-num.js-bounce{
-      animation:js-bounce-in 0.65s cubic-bezier(.34,1.56,.64,1) forwards;
-      position:relative;
-      z-index:1;
-    }
-    .step-num{
-      opacity:0;
-      transform:scale(0);
-    }
-    @media (prefers-reduced-motion: reduce){
-      .step-num{ opacity:1 !important; transform:none !important; }
-      .js-proceso-linea{ transition:none; }
-    }
-  `;
-  document.head.appendChild(estilos);
-
-  // Crea la línea conectora entre el primer y el último círculo
-  const linea = document.createElement("div");
-  linea.className = "js-proceso-linea";
-  contenedor.appendChild(linea);
-
-  const circulos = contenedor.querySelectorAll(".step-num");
-
-  function posicionarLinea() {
-    if (circulos.length < 2) return;
-    const rectContenedor = contenedor.getBoundingClientRect();
-    const primero = circulos[0].getBoundingClientRect();
-    const ultimo = circulos[circulos.length - 1].getBoundingClientRect();
-    const inicio = primero.left - rectContenedor.left + primero.width / 2;
-    const fin = ultimo.left - rectContenedor.left + ultimo.width / 2;
-    linea.style.left = inicio + "px";
-    linea.dataset.anchoFinal = (fin - inicio) + "px";
-  }
-  posicionarLinea();
-  window.addEventListener("resize", posicionarLinea);
-
-  // Cuando la sección entra en pantalla: dibuja la línea y hace
-  // rebotar cada círculo uno tras otro
-  const observador = new IntersectionObserver(
-    (entradas) => {
-      entradas.forEach((entrada) => {
-        if (entrada.isIntersecting) {
-          linea.style.width = linea.dataset.anchoFinal || "0px";
-
-          circulos.forEach((circulo, i) => {
-            setTimeout(() => {
-              circulo.classList.add("js-bounce");
-            }, i * 220);
-          });
-
-          observador.unobserve(entrada.target);
-        }
-      });
-    },
-    { threshold: 0.35 }
-  );
-  observador.observe(contenedor);
-
-});
- 
