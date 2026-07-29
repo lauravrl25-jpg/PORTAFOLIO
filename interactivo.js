@@ -205,8 +205,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // ============================================================
 // ICONOS DE REDES SOCIALES MÁS INTERACTIVOS — autocontenido.
-// Aplica a .hero-social a y .footer-social a (los círculos
-// de TikTok, Instagram, WhatsApp, Facebook).
 // Solo agrega: <script src="redes-interactivas.js"></script>
 // junto a tus otros <script> antes de </body>
 // ============================================================
@@ -216,56 +214,52 @@ document.addEventListener("DOMContentLoaded", () => {
   const iconos = document.querySelectorAll(".hero-social a, .footer-social a");
   if (!iconos.length) return;
 
-  // Inyecta el CSS necesario para el efecto
   const estilos = document.createElement("style");
   estilos.textContent = `
     .hero-social a, .footer-social a{
-      position:relative;
+      position:relative !important;
+      overflow:hidden !important;
       transition:transform 0.25s cubic-bezier(.34,1.56,.64,1),
                  border-color 0.25s ease,
                  background 0.25s ease,
                  color 0.25s ease,
-                 box-shadow 0.25s ease;
-      overflow:hidden;
+                 box-shadow 0.25s ease !important;
+      animation:js-red-pulso 2.6s ease-in-out infinite;
     }
 
     .hero-social a:hover, .footer-social a:hover{
-      transform:scale(1.18) translateY(-3px);
-      border-color:transparent;
-      background:linear-gradient(135deg, #8B3DFF, #FF3D7A, #FF7A3D);
-      color:#fff;
-      box-shadow:0 6px 18px rgba(255,61,122,0.45);
+      transform:scale(1.18) translateY(-3px) !important;
+      border-color:transparent !important;
+      background:linear-gradient(135deg, #8B3DFF, #FF3D7A, #FF7A3D) !important;
+      color:#fff !important;
+      box-shadow:0 6px 18px rgba(255,61,122,0.45) !important;
+      animation:none !important;
     }
 
     .hero-social a:active, .footer-social a:active{
-      transform:scale(0.94);
+      transform:scale(0.94) !important;
     }
 
-    /* Pulso suave constante para llamar la atención, se detiene al pasar el mouse */
     @keyframes js-red-pulso{
       0%, 100%{ box-shadow:0 0 0 0 rgba(139,61,255,0.35); }
       50%{ box-shadow:0 0 0 6px rgba(139,61,255,0); }
     }
-    .hero-social a, .footer-social a{
-      animation:js-red-pulso 2.6s ease-in-out infinite;
-    }
-    .hero-social a:hover, .footer-social a:hover{
-      animation:none;
-    }
 
-    /* Retraso escalonado para que el pulso no sea idéntico en los 4 al mismo tiempo */
     .hero-social a:nth-child(1), .footer-social a:nth-child(1){ animation-delay:0s; }
     .hero-social a:nth-child(2), .footer-social a:nth-child(2){ animation-delay:0.2s; }
     .hero-social a:nth-child(3), .footer-social a:nth-child(3){ animation-delay:0.4s; }
     .hero-social a:nth-child(4), .footer-social a:nth-child(4){ animation-delay:0.6s; }
 
+    @keyframes js-ripple-anim-red{
+      to{ transform:scale(2.4); opacity:0; }
+    }
+
     @media (prefers-reduced-motion: reduce){
-      .hero-social a, .footer-social a{ animation:none; }
+      .hero-social a, .footer-social a{ animation:none !important; }
     }
   `;
   document.head.appendChild(estilos);
 
-  // Pequeño efecto ripple al hacer clic, igual que en los botones
   iconos.forEach((icono) => {
     icono.addEventListener("click", (e) => {
       const rect = icono.getBoundingClientRect();
@@ -285,16 +279,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  const keyframesRipple = document.createElement("style");
-  keyframesRipple.textContent = `
-    @keyframes js-ripple-anim-red{
-      to{ transform:scale(2.4); opacity:0; }
-    }
-  `;
-  document.head.appendChild(keyframesRipple);
-
 });
-
 
 
 
