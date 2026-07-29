@@ -243,5 +243,46 @@ document.addEventListener("DOMContentLoaded", () => {
   document.head.appendChild(estilos);
 
   // Crea la línea conectora entre el primer y el último círculo
-  
+  const linea = document.createElement("div");
+  linea.className = "js-proceso-linea";
+  contenedor.appendChild(linea);
+
+  const circulos = contenedor.querySelectorAll(".step-num");
+
+  function posicionarLinea() {
+    if (circulos.length < 2) return;
+    const rectContenedor = contenedor.getBoundingClientRect();
+    const primero = circulos[0].getBoundingClientRect();
+    const ultimo = circulos[circulos.length - 1].getBoundingClientRect();
+    const inicio = primero.left - rectContenedor.left + primero.width / 2;
+    const fin = ultimo.left - rectContenedor.left + ultimo.width / 2;
+    linea.style.left = inicio + "px";
+    linea.dataset.anchoFinal = (fin - inicio) + "px";
+  }
+  posicionarLinea();
+  window.addEventListener("resize", posicionarLinea);
+
+  // Cuando la sección entra en pantalla: dibuja la línea y hace
+  // rebotar cada círculo uno tras otro
+  const observador = new IntersectionObserver(
+    (entradas) => {
+      entradas.forEach((entrada) => {
+        if (entrada.isIntersecting) {
+          linea.style.width = linea.dataset.anchoFinal || "0px";
+
+          circulos.forEach((circulo, i) => {
+            setTimeout(() => {
+              circulo.classList.add("js-bounce");
+            }, i * 220);
+          });
+
+          observador.unobserve(entrada.target);
+        }
+      });
+    },
+    { threshold: 0.35 }
+  );
+  observador.observe(contenedor);
+
+});
  
