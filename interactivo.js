@@ -262,26 +262,4 @@ document.addEventListener("DOMContentLoaded", () => {
   posicionarLinea();
   window.addEventListener("resize", posicionarLinea);
 
-  // Cuando la sección entra en pantalla: dibuja la línea y hace
-  // rebotar cada círculo uno tras otro
-  const observador = new IntersectionObserver(
-    (entradas) => {
-      entradas.forEach((entrada) => {
-        if (entrada.isIntersecting) {
-          linea.style.width = linea.dataset.anchoFinal || "0px";
 
-          circulos.forEach((circulo, i) => {
-            setTimeout(() => {
-              circulo.classList.add("js-bounce");
-            }, i * 220);
-          });
-
-          observador.unobserve(entrada.target);
-        }
-      });
-    },
-    { threshold: 0.35 }
-  );
-  observador.observe(contenedor);
-
-});
