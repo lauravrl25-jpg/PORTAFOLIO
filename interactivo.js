@@ -282,4 +282,165 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+// ============================================================
+// TARJETAS DEL PORTAFOLIO AMPLIABLES — 100% JavaScript, autocontenido.
+// Al hacer clic en cualquier tarjeta (.card), se abre en grande
+// con su título y descripción, reutilizando el contenido que ya
+// tiene cada tarjeta — no necesitas escribir nada dos veces.
+// Solo agrega: <script src="portafolio-modal.js"></script>
+// junto a tus otros <script> antes de </body>
+// ============================================================
 
+document.addEventListener("DOMContentLoaded", () => {
+
+  const tarjetas = document.querySelectorAll(".card");
+  if (!tarjetas.length) return;
+
+  // Inyecta el CSS del modal
+  const estilos = document.createElement("style");
+  estilos.textContent = `
+    #js-modal-fondo{
+      position:fixed; inset:0;
+      background:rgba(10,7,18,0.88);
+      backdrop-filter:blur(6px);
+      display:flex; align-items:center; justify-content:center;
+      padding:24px;
+      opacity:0; visibility:hidden;
+      transition:opacity 0.25s ease, visibility 0.25s;
+      z-index:10000;
+    }
+    #js-modal-fondo.js-abierto{
+      opacity:1; visibility:visible;
+    }
+    #js-modal-caja{
+      background:#130D1F;
+      border:1px solid #2A2240;
+      border-radius:16px;
+      max-width:480px;
+      width:100%;
+      overflow:hidden;
+      transform:scale(0.92) translateY(10px);
+      transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);
+    }
+    #js-modal-fondo.js-abierto #js-modal-caja{
+      transform:scale(1) translateY(0);
+    }
+    #js-modal-thumb{
+      aspect-ratio:16/10;
+      overflow:hidden;
+    }
+    #js-modal-thumb img{
+      width:100%; height:100%; object-fit:cover;
+    }
+    #js-modal-info{
+      padding:24px 26px 28px;
+    }
+    #js-modal-tag{
+      display:inline-block;
+      font-family:'IBM Plex Mono', monospace;
+      font-size:0.7rem;
+      text-transform:uppercase;
+      letter-spacing:0.05em;
+      padding:4px 10px;
+      border-radius:20px;
+      color:#fff;
+      margin-bottom:14px;
+    }
+    #js-modal-titulo{
+      font-family:'Space Grotesk', sans-serif;
+      font-size:1.3rem;
+      font-weight:700;
+      color:#F5F3FB;
+      margin:0 0 10px;
+    }
+    #js-modal-desc{
+      font-size:0.92rem;
+      color:#A79FC0;
+      margin:0;
+      line-height:1.6;
+    }
+    #js-modal-cerrar{
+      position:absolute;
+      top:14px; right:14px;
+      width:34px; height:34px;
+      border-radius:50%;
+      background:rgba(0,0,0,0.4);
+      border:1px solid rgba(255,255,255,0.2);
+      color:#fff;
+      font-size:1rem;
+      cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .card{ cursor:pointer; }
+
+    @media (max-width:600px){
+      #js-modal-caja{ max-width:100%; }
+    }
+  `;
+  document.head.appendChild(estilos);
+
+  // Crea la estructura del modal una sola vez
+  const fondo = document.createElement("div");
+  fondo.id = "js-modal-fondo";
+  fondo.innerHTML = `
+    <div id="js-modal-caja">
+      <button id="js-modal-cerrar" aria-label="Cerrar">✕</button>
+      <div id="js-modal-thumb"></div>
+      <div id="js-modal-info">
+        <span id="js-modal-tag"></span>
+        <h3 id="js-modal-titulo"></h3>
+        <p id="js-modal-desc"></p>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(fondo);
+
+  const modalThumb = document.getElementById("js-modal-thumb");
+  const modalTag = document.getElementById("js-modal-tag");
+  const modalTitulo = document.getElementById("js-modal-titulo");
+  const modalDesc = document.getElementById("js-modal-desc");
+  const botonCerrar = document.getElementById("js-modal-cerrar");
+
+  function abrirModal(tarjeta) {
+    // Copia el contenido visual (imagen o degradado) de la tarjeta original
+    const thumbOriginal = tarjeta.querySelector(".card-thumb");
+    modalThumb.innerHTML = thumbOriginal ? thumbOriginal.innerHTML : "";
+    modalThumb.style.background = thumbOriginal ? getComputedStyle(thumbOriginal).background : "";
+
+    const etiqueta = tarjeta.querySelector(".card-tool-tag");
+    if (etiqueta) {
+      modalTag.textContent = etiqueta.textContent;
+      modalTag.style.background = getComputedStyle(etiqueta).background;
+      modalTag.style.color = getComputedStyle(etiqueta).color;
+      modalTag.style.display = "inline-block";
+    } else {
+      modalTag.style.display = "none";
+    }
+
+    const titulo = tarjeta.querySelector(".card-info h3");
+    const desc = tarjeta.querySelector(".card-info p");
+    modalTitulo.textContent = titulo ? titulo.textContent : "";
+    modalDesc.textContent = desc ? desc.textContent : "";
+
+    fondo.classList.add("js-abierto");
+    document.body.style.overflow = "hidden";
+  }
+
+  function cerrarModal() {
+    fondo.classList.remove("js-abierto");
+    document.body.style.overflow = "";
+  }
+
+  tarjetas.forEach((tarjeta) => {
+    tarjeta.addEventListener("click", () => abrirModal(tarjeta));
+  });
+
+  botonCerrar.addEventListener("click", cerrarModal);
+  fondo.addEventListener("click", (e) => {
+    if (e.target === fondo) cerrarModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") cerrarModal();
+  });
+
+});
