@@ -282,224 +282,262 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+
 // ============================================================
-// GALERÍA DE PORTAFOLIO — 100% JavaScript, autocontenido.
-// Al hacer clic en una tarjeta se abre en grande, con flechas
-// ❮ ❯ para pasar al siguiente/anterior trabajo visible, igual
-// que una galería. No requiere tocar el HTML ni el CSS.
-// Solo agrega: <script src="portafolio-modal.js"></script>
-// junto a tus otros <script> antes de </body>
+// GALERÍA DE PORTAFOLIO — imagen grande a un lado, info al otro.
+// Protegido contra duplicados: si este script (o uno igual) ya
+// se ejecutó, no vuelve a crear nada.
 // ============================================================
 
-document.addEventListener("DOMContentLoaded", () => {
+(function () {
+  if (window.__portafolioModalInit) return;
+  window.__portafolioModalInit = true;
 
-  const todasLasTarjetas = document.querySelectorAll(".card");
-  if (!todasLasTarjetas.length) return;
+  // Por si quedó algún modal viejo creado antes de este candado,
+  // los elimina todos antes de crear el nuevo (limpieza de seguridad)
+  document.querySelectorAll("#js-modal-fondo").forEach((el) => el.remove());
 
-  const estilos = document.createElement("style");
-  estilos.textContent = `
-    #js-modal-fondo{
-      position:fixed; inset:0;
-      background:rgba(10,7,18,0.9);
-      backdrop-filter:blur(6px);
-      display:flex; align-items:center; justify-content:center;
-      padding:24px;
-      opacity:0; visibility:hidden;
-      transition:opacity 0.25s ease, visibility 0.25s;
-      z-index:10000;
-    }
-    #js-modal-fondo.js-abierto{ opacity:1; visibility:visible; }
+  function iniciar() {
+    const todasLasTarjetas = document.querySelectorAll(".card");
+    if (!todasLasTarjetas.length) return;
 
-    #js-modal-caja{
-      background:#130D1F;
-      border:1px solid #2A2240;
-      border-radius:16px;
-      max-width:480px;
-      width:100%;
-      overflow:hidden;
-      position:relative;
-      transform:scale(0.92) translateY(10px);
-      transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);
-    }
-    #js-modal-fondo.js-abierto #js-modal-caja{ transform:scale(1) translateY(0); }
+    const estilos = document.createElement("style");
+    estilos.textContent = `
+      #js-modal-fondo{
+        position:fixed; inset:0;
+        background:rgba(10,7,18,0.9);
+        backdrop-filter:blur(6px);
+        display:flex; align-items:center; justify-content:center;
+        padding:24px;
+        opacity:0; visibility:hidden;
+        transition:opacity 0.25s ease, visibility 0.25s;
+        z-index:10000;
+      }
+      #js-modal-fondo.js-abierto{ opacity:1; visibility:visible; }
 
-    #js-modal-thumb{ aspect-ratio:16/10; overflow:hidden; }
-    #js-modal-thumb img{ width:100%; height:100%; object-fit:cover; }
+      #js-modal-caja{
+        background:#130D1F;
+        border:1px solid #2A2240;
+        border-radius:16px;
+        max-width:900px;
+        width:100%;
+        overflow:hidden;
+        position:relative;
+        display:flex;
+        flex-direction:row;
+        height:min(520px, 80vh);
+        transform:scale(0.94) translateY(10px);
+        transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);
+      }
+      #js-modal-fondo.js-abierto #js-modal-caja{ transform:scale(1) translateY(0); }
 
-    #js-modal-info{ padding:24px 26px 28px; }
-    #js-modal-tag{
-      display:inline-block;
-      font-family:'IBM Plex Mono', monospace;
-      font-size:0.7rem;
-      text-transform:uppercase;
-      letter-spacing:0.05em;
-      padding:4px 10px;
-      border-radius:20px;
-      color:#fff;
-      margin-bottom:14px;
-    }
-    #js-modal-titulo{
-      font-family:'Space Grotesk', sans-serif;
-      font-size:1.3rem; font-weight:700;
-      color:#F5F3FB; margin:0 0 10px;
-    }
-    #js-modal-desc{
-      font-size:0.92rem; color:#A79FC0; margin:0; line-height:1.6;
-    }
-    #js-modal-contador{
-      font-family:'IBM Plex Mono', monospace;
-      font-size:0.72rem;
-      color:#6E6690;
-      margin-top:14px;
-    }
+      #js-modal-thumb{
+        flex:1 1 60%;
+        height:100%;
+        overflow:hidden;
+      }
+      #js-modal-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
 
-    #js-modal-cerrar{
-      position:absolute; top:14px; right:14px;
-      width:34px; height:34px; border-radius:50%;
-      background:rgba(0,0,0,0.45);
-      border:1px solid rgba(255,255,255,0.2);
-      color:#fff; font-size:1rem; cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-      z-index:2;
-    }
+      #js-modal-info{
+        flex:1 1 40%;
+        height:100%;
+        padding:32px 30px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        overflow-y:auto;
+      }
+      #js-modal-tag{
+        display:inline-block;
+        font-family:'IBM Plex Mono', monospace;
+        font-size:0.7rem;
+        text-transform:uppercase;
+        letter-spacing:0.05em;
+        padding:4px 10px;
+        border-radius:20px;
+        color:#fff;
+        margin-bottom:16px;
+        width:fit-content;
+      }
+      #js-modal-titulo{
+        font-family:'Space Grotesk', sans-serif;
+        font-size:1.5rem; font-weight:700;
+        color:#F5F3FB; margin:0 0 14px;
+        line-height:1.25;
+      }
+      #js-modal-desc{
+        font-size:0.95rem; color:#A79FC0; margin:0; line-height:1.7;
+      }
+      #js-modal-contador{
+        font-family:'IBM Plex Mono', monospace;
+        font-size:0.72rem;
+        color:#6E6690;
+        margin-top:22px;
+      }
 
-    .js-modal-flecha{
-      position:absolute; top:50%; transform:translateY(-50%);
-      width:44px; height:44px; border-radius:50%;
-      background:rgba(19,13,31,0.85);
-      border:1px solid #2A2240;
-      color:#F5F3FB; font-size:1.1rem; cursor:pointer;
-      display:flex; align-items:center; justify-content:center;
-      z-index:10001;
-      transition:background 0.2s ease, transform 0.2s ease;
-    }
-    .js-modal-flecha:hover{
-      background:linear-gradient(135deg,#8B3DFF,#FF3D7A);
-    }
-    #js-flecha-izq{ left:-60px; }
-    #js-flecha-der{ right:-60px; }
+      #js-modal-cerrar{
+        position:absolute; top:14px; right:14px;
+        width:34px; height:34px; border-radius:50%;
+        background:rgba(0,0,0,0.45);
+        border:1px solid rgba(255,255,255,0.2);
+        color:#fff; font-size:1rem; cursor:pointer;
+        display:flex; align-items:center; justify-content:center;
+        z-index:2;
+      }
 
-    @media (max-width:760px){
-      #js-modal-caja{ max-width:100%; }
-      #js-flecha-izq{ left:8px; }
-      #js-flecha-der{ right:8px; }
-      .js-modal-flecha{ background:rgba(10,7,18,0.7); }
-    }
+      .js-modal-flecha{
+        position:absolute; top:50%; transform:translateY(-50%);
+        width:44px; height:44px; border-radius:50%;
+        background:rgba(19,13,31,0.85);
+        border:1px solid #2A2240;
+        color:#F5F3FB; font-size:1.1rem; cursor:pointer;
+        display:flex; align-items:center; justify-content:center;
+        z-index:10001;
+        transition:background 0.2s ease;
+      }
+      .js-modal-flecha:hover{
+        background:linear-gradient(135deg,#8B3DFF,#FF3D7A);
+      }
+      #js-flecha-izq{ left:-60px; }
+      #js-flecha-der{ right:-60px; }
 
-    .card{ cursor:pointer; }
-  `;
-  document.head.appendChild(estilos);
+      @media (max-width:760px){
+        #js-modal-caja{
+          flex-direction:column;
+          height:auto;
+          max-height:90vh;
+          overflow-y:auto;
+        }
+        #js-modal-thumb{ height:220px; flex:none; }
+        #js-modal-info{ height:auto; }
+        #js-flecha-izq{ left:8px; }
+        #js-flecha-der{ right:8px; }
+        .js-modal-flecha{ background:rgba(10,7,18,0.7); }
+      }
 
-  // Estructura del modal (se crea una sola vez)
-  const fondo = document.createElement("div");
-  fondo.id = "js-modal-fondo";
-  fondo.innerHTML = `
-    <button id="js-flecha-izq" class="js-modal-flecha" aria-label="Anterior">❮</button>
-    <div id="js-modal-caja">
-      <button id="js-modal-cerrar" aria-label="Cerrar">✕</button>
-      <div id="js-modal-thumb"></div>
-      <div id="js-modal-info">
-        <span id="js-modal-tag"></span>
-        <h3 id="js-modal-titulo"></h3>
-        <p id="js-modal-desc"></p>
-        <p id="js-modal-contador"></p>
+      .card{ cursor:pointer; }
+    `;
+    document.head.appendChild(estilos);
+
+    const fondo = document.createElement("div");
+    fondo.id = "js-modal-fondo";
+    fondo.innerHTML = `
+      <button id="js-flecha-izq" class="js-modal-flecha" aria-label="Anterior">❮</button>
+      <div id="js-modal-caja">
+        <button id="js-modal-cerrar" aria-label="Cerrar">✕</button>
+        <div id="js-modal-thumb"></div>
+        <div id="js-modal-info">
+          <span id="js-modal-tag"></span>
+          <h3 id="js-modal-titulo"></h3>
+          <p id="js-modal-desc"></p>
+          <p id="js-modal-contador"></p>
+        </div>
       </div>
-    </div>
-    <button id="js-flecha-der" class="js-modal-flecha" aria-label="Siguiente">❯</button>
-  `;
-  document.body.appendChild(fondo);
+      <button id="js-flecha-der" class="js-modal-flecha" aria-label="Siguiente">❯</button>
+    `;
+    document.body.appendChild(fondo);
 
-  const modalThumb = document.getElementById("js-modal-thumb");
-  const modalTag = document.getElementById("js-modal-tag");
-  const modalTitulo = document.getElementById("js-modal-titulo");
-  const modalDesc = document.getElementById("js-modal-desc");
-  const modalContador = document.getElementById("js-modal-contador");
-  const botonCerrar = document.getElementById("js-modal-cerrar");
-  const flechaIzq = document.getElementById("js-flecha-izq");
-  const flechaDer = document.getElementById("js-flecha-der");
+    const modalThumb = document.getElementById("js-modal-thumb");
+    const modalTag = document.getElementById("js-modal-tag");
+    const modalTitulo = document.getElementById("js-modal-titulo");
+    const modalDesc = document.getElementById("js-modal-desc");
+    const modalContador = document.getElementById("js-modal-contador");
+    const botonCerrar = document.getElementById("js-modal-cerrar");
+    const flechaIzq = document.getElementById("js-flecha-izq");
+    const flechaDer = document.getElementById("js-flecha-der");
 
-  let listaVisible = [];
-  let indiceActual = 0;
+    let listaVisible = [];
+    let indiceActual = 0;
 
-  function tarjetasVisiblesAhora() {
-    // Solo cuenta las tarjetas que están visibles según el filtro activo
-    return Array.from(todasLasTarjetas).filter(
-      (t) => getComputedStyle(t).display !== "none"
-    );
-  }
-
-  function mostrarTarjeta(indice) {
-    const tarjeta = listaVisible[indice];
-    if (!tarjeta) return;
-
-    const thumbOriginal = tarjeta.querySelector(".card-thumb");
-    modalThumb.innerHTML = thumbOriginal ? thumbOriginal.innerHTML : "";
-    modalThumb.style.background = thumbOriginal ? getComputedStyle(thumbOriginal).background : "";
-
-    const etiqueta = tarjeta.querySelector(".card-tool-tag");
-    if (etiqueta) {
-      modalTag.textContent = etiqueta.textContent;
-      modalTag.style.background = getComputedStyle(etiqueta).background;
-      modalTag.style.color = getComputedStyle(etiqueta).color;
-      modalTag.style.display = "inline-block";
-    } else {
-      modalTag.style.display = "none";
+    function tarjetasVisiblesAhora() {
+      return Array.from(todasLasTarjetas).filter(
+        (t) => getComputedStyle(t).display !== "none"
+      );
     }
 
-    const titulo = tarjeta.querySelector(".card-info h3");
-    const desc = tarjeta.querySelector(".card-info p");
-    modalTitulo.textContent = titulo ? titulo.textContent : "";
-    modalDesc.textContent = desc ? desc.textContent : "";
-    modalContador.textContent = (indice + 1) + " / " + listaVisible.length;
+    function mostrarTarjeta(indice) {
+      const tarjeta = listaVisible[indice];
+      if (!tarjeta) return;
 
-    indiceActual = indice;
+      const thumbOriginal = tarjeta.querySelector(".card-thumb");
+      modalThumb.innerHTML = thumbOriginal ? thumbOriginal.innerHTML : "";
+      modalThumb.style.background = thumbOriginal ? getComputedStyle(thumbOriginal).background : "";
+
+      const etiqueta = tarjeta.querySelector(".card-tool-tag");
+      if (etiqueta) {
+        modalTag.textContent = etiqueta.textContent;
+        modalTag.style.background = getComputedStyle(etiqueta).background;
+        modalTag.style.color = getComputedStyle(etiqueta).color;
+        modalTag.style.display = "inline-block";
+      } else {
+        modalTag.style.display = "none";
+      }
+
+      const titulo = tarjeta.querySelector(".card-info h3");
+      const desc = tarjeta.querySelector(".card-info p");
+      modalTitulo.textContent = titulo ? titulo.textContent : "";
+      modalDesc.textContent = desc ? desc.textContent : "";
+      modalContador.textContent = (indice + 1) + " / " + listaVisible.length;
+
+      indiceActual = indice;
+    }
+
+    function abrirModal(tarjeta) {
+      listaVisible = tarjetasVisiblesAhora();
+      const posicion = listaVisible.indexOf(tarjeta);
+      mostrarTarjeta(posicion >= 0 ? posicion : 0);
+      fondo.classList.add("js-abierto");
+      document.body.style.overflow = "hidden";
+    }
+
+    function cerrarModal() {
+      fondo.classList.remove("js-abierto");
+      document.body.style.overflow = "";
+    }
+
+    function siguiente() {
+      mostrarTarjeta((indiceActual + 1) % listaVisible.length);
+    }
+
+    function anterior() {
+      mostrarTarjeta((indiceActual - 1 + listaVisible.length) % listaVisible.length);
+    }
+
+    todasLasTarjetas.forEach((tarjeta) => {
+      tarjeta.addEventListener("click", () => abrirModal(tarjeta));
+    });
+
+    botonCerrar.addEventListener("click", cerrarModal);
+    flechaDer.addEventListener("click", siguiente);
+    flechaIzq.addEventListener("click", anterior);
+
+    fondo.addEventListener("click", (e) => {
+      if (e.target === fondo) cerrarModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (!fondo.classList.contains("js-abierto")) return;
+      if (e.key === "Escape") cerrarModal();
+      if (e.key === "ArrowRight") siguiente();
+      if (e.key === "ArrowLeft") anterior();
+    });
   }
 
-  function abrirModal(tarjeta) {
-    listaVisible = tarjetasVisiblesAhora();
-    const posicion = listaVisible.indexOf(tarjeta);
-    mostrarTarjeta(posicion >= 0 ? posicion : 0);
-
-    fondo.classList.add("js-abierto");
-    document.body.style.overflow = "hidden";
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", iniciar);
+  } else {
+    iniciar();
   }
+})();
 
-  function cerrarModal() {
-    fondo.classList.remove("js-abierto");
-    document.body.style.overflow = "";
-  }
 
-  function siguiente() {
-    const nuevo = (indiceActual + 1) % listaVisible.length;
-    mostrarTarjeta(nuevo);
-  }
 
-  function anterior() {
-    const nuevo = (indiceActual - 1 + listaVisible.length) % listaVisible.length;
-    mostrarTarjeta(nuevo);
-  }
 
-  todasLasTarjetas.forEach((tarjeta) => {
-    tarjeta.addEventListener("click", () => abrirModal(tarjeta));
-  });
+        
 
-  botonCerrar.addEventListener("click", cerrarModal);
-  flechaDer.addEventListener("click", siguiente);
-  flechaIzq.addEventListener("click", anterior);
-
-  fondo.addEventListener("click", (e) => {
-    if (e.target === fondo) cerrarModal();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (!fondo.classList.contains("js-abierto")) return;
-    if (e.key === "Escape") cerrarModal();
-    if (e.key === "ArrowRight") siguiente();
-    if (e.key === "ArrowLeft") anterior();
-  });
-
-});
+  
     
+ 
     
     
   
