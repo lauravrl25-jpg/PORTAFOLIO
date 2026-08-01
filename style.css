@@ -333,12 +333,6 @@
 
   /* ============ PORTAFOLIO — filtro con radio buttons (CSS puro) ============ */
 
-.card-thumb img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
   .filter-radio{
     position:absolute;
     opacity:0;
