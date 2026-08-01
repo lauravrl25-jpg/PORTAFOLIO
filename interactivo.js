@@ -332,12 +332,17 @@ document.addEventListener("DOMContentLoaded", () => {
       #js-modal-fondo.js-abierto #js-modal-caja{ transform:scale(1) translateY(0); }
 
       #js-modal-thumb{
-        flex:1 1 60%;
-        height:100%;
-        overflow:hidden;
-      }
-      #js-modal-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
-
+  flex:1 1 60%;
+  height:100%;
+  overflow:hidden;
+}
+#js-modal-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+}
       #js-modal-info{
         flex:1 1 40%;
         height:100%;
