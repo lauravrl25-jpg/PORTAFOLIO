@@ -319,13 +319,13 @@ document.addEventListener("DOMContentLoaded", () => {
         background:#130D1F;
         border:1px solid #2A2240;
         border-radius:16px;
-        max-width:900px;
-        width:100%;
+        max-width:1200px;
+        width:95%;
         overflow:hidden;
         position:relative;
         display:flex;
         flex-direction:row;
-        height:min(520px, 80vh);
+        height:min(680px, 90vh);
         transform:scale(0.94) translateY(10px);
         transition:transform 0.3s cubic-bezier(.34,1.56,.64,1);
       }
