@@ -745,4 +745,29 @@ footer{
   }
 }
 
+/* ============================================================
+   TAMAÑO FIJO PARA TODAS LAS TARJETAS DEL PORTAFOLIO
+   No importa si es una foto real, un video o un degradado de
+   color: todas ocupan exactamente el mismo espacio.
+   ============================================================ */
+
+.card-thumb{
+  position:relative !important;
+  aspect-ratio:4/3 !important;
+  overflow:hidden !important;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* Cualquier imagen dentro de una tarjeta (sin importar su clase)
+   se recorta para llenar ese recuadro fijo, sin deformarse */
+.card-thumb img{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+}
+
 </style>
