@@ -770,4 +770,27 @@ footer{
   object-fit:cover !important;
 }
 
+/* ============================================================
+   FOTOS CENTRADAS DENTRO DEL MODAL DEL PORTAFOLIO
+   Cualquier foto (horizontal, vertical o cuadrada) se muestra
+   completa, sin recortarse, y centrada en el recuadro.
+   ============================================================ */
+
+#js-modal-thumb{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  background:#0A0712 !important; /* fondo detrás de fotos que no llenan todo el espacio */
+}
+
+#js-modal-thumb img{
+  position:static !important;
+  width:auto !important;
+  height:auto !important;
+  max-width:100% !important;
+  max-height:100% !important;
+  object-fit:contain !important;
+  margin:auto;
+}
+
 </style>
