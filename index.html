@@ -132,21 +132,34 @@
       </div>
 
       <!-- Radios de filtro (CSS puro, sin JS) -->
-      <input type="radio" name="filtro" id="f-todos" class="filter-radio" checked>
-      <input type="radio" name="filtro" id="f-ph" class="filter-radio">
-      <input type="radio" name="filtro" id="f-ai" class="filter-radio">
-      <input type="radio" name="filtro" id="f-id" class="filter-radio">
-      <input type="radio" name="filtro" id="f-pr" class="filter-radio">
-      <input type="radio" name="filtro" id="f-ae" class="filter-radio">
+<input type="radio" name="filtro" id="f-todos" class="filter-radio" checked>
+<input type="radio" name="filtro" id="f-ph" class="filter-radio">
+<input type="radio" name="filtro" id="f-ai" class="filter-radio">
+<input type="radio" name="filtro" id="f-id" class="filter-radio">
+<input type="radio" name="filtro" id="f-pr" class="filter-radio">
+<input type="radio" name="filtro" id="f-ae" class="filter-radio">
+<input type="radio" name="filtro" id="f-foto" class="filter-radio">
 
-      <div class="filter-tabs">
-        <label for="f-todos">Todos</label>
-        <label for="f-ph">Photoshop</label>
-        <label for="f-ai">Illustrator</label>
-        <label for="f-id">InDesign</label>
-        <label for="f-pr">Premiere</label>
-        <label for="f-ae">After Effects</label>
-      </div>
+<div class="filter-tabs">
+  <label for="f-todos">Todos</label>
+  <label for="f-ph">Photoshop</label>
+  <label for="f-ai">Illustrator</label>
+  <label for="f-id">InDesign</label>
+  <label for="f-pr">Premiere</label>
+  <label for="f-ae">After Effects</label>
+  <label for="f-foto">Fotos</label>
+</div>
+
+  <article class="card foto" data-images="fotografia/mi-foto.jpg">
+  <div class="card-thumb">
+    <img src="fotografia/mi-foto.jpg" alt="Nombre de la foto" class="card-thumb-img">
+    <span class="card-tool-tag" style="background:#E94F37;">Fotografía</span>
+  </div>
+  <div class="card-info">
+    <h3>Nombre del trabajo</h3>
+    <p>Breve descripción de la foto</p>
+  </div>
+</article>
 
      <div class="grid">
         <article class="card ph">
