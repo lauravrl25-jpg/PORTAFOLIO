@@ -422,35 +422,11 @@
 .card-thumb-video{
   position: relative;
 }
-.card-video{
+.card-video-simple{
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  background: #000;
-}
-.video-play-btn{
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 54px; height: 54px;
-  border-radius: 50%;
-  background: rgba(10,7,18,0.6);
-  border: 1px solid rgba(255,255,255,0.4);
-  color: #fff;
-  font-size: 1.1rem;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
-  transition: transform 0.2s ease, background 0.2s ease;
-  z-index: 2;
-}
-.video-play-btn:hover{
-  transform: translate(-50%, -50%) scale(1.1);
-  background: linear-gradient(135deg, #8B3DFF, #FF3D7A);
-}
-.video-play-btn.oculto{
-  display: none;
 }
 
  .card-thumb img{
