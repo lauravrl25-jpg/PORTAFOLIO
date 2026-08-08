@@ -536,6 +536,65 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 
+(function(){
+  const LIMIT = 6; // cuántas tarjetas se ven "de entrada"
+  const cards = document.querySelectorAll('.grid .card');
+  const btn = document.getElementById('btn-ver-todo');
+  let expanded = false;
+
+  const filtroClaseMap = {
+    'f-ph':   'ph',
+    'f-ai':   'ai',
+    'f-id':   'id',
+    'f-pr':   'pr',
+    'f-ae':   'ae',
+    'f-foto': 'foto'
+  };
+
+  function pasaFiltroActual(card){
+    const checked = document.querySelector('input[name="filtro"]:checked');
+    if(!checked || checked.id === 'f-todos') return true;
+    const clase = filtroClaseMap[checked.id];
+    return card.classList.contains(clase);
+  }
+
+  function aplicarLimite(){
+    if(expanded){
+      cards.forEach(c => c.classList.remove('js-hidden'));
+      return;
+    }
+    let mostradas = 0;
+    cards.forEach(card => {
+      const pasa = pasaFiltroActual(card);
+      if(pasa && mostradas < LIMIT){
+        card.classList.remove('js-hidden');
+        mostradas++;
+      } else if(pasa){
+        card.classList.add('js-hidden');
+      } else {
+        card.classList.remove('js-hidden');
+      }
+    });
+  }
+
+  document.querySelectorAll('input[name="filtro"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      expanded = false;
+      btn.textContent = 'Ver todo el portafolio';
+      aplicarLimite();
+    });
+  });
+
+  btn.addEventListener('click', () => {
+    expanded = !expanded;
+    btn.textContent = expanded ? 'Ver menos' : 'Ver todo el portafolio';
+    aplicarLimite();
+  });
+
+  aplicarLimite();
+})();
+</script>
+
 
 
         
