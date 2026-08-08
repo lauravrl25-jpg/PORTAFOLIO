@@ -466,6 +466,10 @@
   display:flex;
 }
 
+/* ============ VER MÁS / VER MENOS ============ */
+.js-hidden{
+  display:none !important;
+}
   /* ============ NOSOTROS ============ */
   .nosotros{
     display:grid;
