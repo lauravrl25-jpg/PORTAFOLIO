@@ -615,6 +615,28 @@ document.querySelectorAll('.card-thumb-video').forEach(function(thumb){
     video.controls = false;
   });
 });
+document.querySelectorAll('.card-thumb-video').forEach(function(thumb){
+  const video = thumb.querySelector('.card-video');
+  const btnPlay = thumb.querySelector('.video-play-btn');
+  if(!video || !btnPlay) return;
+
+  btnPlay.addEventListener('click', function(e){
+    e.stopPropagation();
+    if(video.paused){
+      video.controls = true;
+      video.play();
+      btnPlay.classList.add('oculto');
+    }
+  });
+
+  video.addEventListener('pause', function(){
+    btnPlay.classList.remove('oculto');
+  });
+  video.addEventListener('ended', function(){
+    btnPlay.classList.remove('oculto');
+    video.controls = false;
+  });
+});
 
 
 
